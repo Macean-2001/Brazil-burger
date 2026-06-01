@@ -21,6 +21,15 @@ docker build -t yacine1108/brasilburger:latest .
 docker compose --env-file .env up -d
 ```
 
+Sur Ubuntu/Jenkins, les memes etapes utilisent `sh` et des chemins Linux :
+
+```bash
+dotnet build csharp_web/csharp_web.csproj --configuration Release
+dotnet test csharp_web.Tests/csharp_web.Tests.csproj --configuration Release --verbosity normal
+docker build -t yacine1108/brasilburger:latest .
+docker compose --env-file .env up -d
+```
+
 ## Verifications applicatives
 
 ```powershell
@@ -41,4 +50,24 @@ kubectl get svc -n production
 
 ## Monitoring
 
-Dans Prometheus, verifier que la target `brasilburger-app` est `UP`, puis montrer les alertes de `monitoring/alerting_rules.yml`.
+La stack monitoring lance Prometheus, Grafana, Alertmanager et Node Exporter avec Docker Compose.
+
+URLs a montrer :
+
+```text
+Application:  http://localhost:8083
+Healthcheck:  http://localhost:8083/health
+Metrics app:  http://localhost:8083/metrics
+Prometheus:   http://localhost:9090
+Grafana:      http://localhost:3000
+Alertmanager: http://localhost:9093
+Node Exporter: http://localhost:9100/metrics
+```
+
+Dans Prometheus, verifier que les targets `brasilburger-app`, `ubuntu_server`, `prometheus` et `alertmanager` sont `UP`, puis montrer les alertes de `monitoring/alerting_rules.yml`.
+
+Identifiants Grafana de demonstration :
+
+```text
+admin / admin
+```
