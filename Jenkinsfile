@@ -24,6 +24,12 @@ pipeline {
             }
         }
 
+        stage('Test .NET') {
+            steps {
+                bat 'dotnet test csharp_web.Tests\\csharp_web.Tests.csproj --configuration Release --verbosity normal'
+            }
+        }
+
         stage('Build Docker') {
             steps {
                 bat 'docker build -t yacine1108/brasilburger:latest .'

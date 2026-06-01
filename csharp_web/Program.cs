@@ -2,11 +2,13 @@ using csharp_web.Data;
 using csharp_web.Repositories;
 using csharp_web.Services;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ===== MVC =====
 builder.Services.AddControllersWithViews();
+builder.Services.AddHealthChecks();
 
 // ===== CONNECTION STRING =====
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -64,9 +66,13 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseHttpMetrics();
 
 app.UseSession();
 app.UseAuthorization();
+
+app.MapHealthChecks("/health");
+app.MapMetrics("/metrics");
 
 app.MapControllerRoute(
     name: "default",

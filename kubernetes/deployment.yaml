@@ -27,6 +27,12 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
+        env:
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: brasilburger-secrets
+              key: DEFAULT_CONNECTION
         resources:
           requests:
             memory: '128Mi'

@@ -7,6 +7,7 @@ obj/
 
 # Visual Studio
 .vs/
+.vscode/
 *.suo
 *.user
 *.tmp
@@ -38,3 +39,4 @@ packages/
 
 # Secrets
 appsettings.Development.json
+.env
